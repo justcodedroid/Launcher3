@@ -31,7 +31,7 @@ public class PillRevealOutlineProvider extends RevealOutlineAnimation {
 
     private int mCenterX;
     private int mCenterY;
-    protected Rect mPillRect;
+    protected Rect mPillRect;//圆角矩形
 
     /**
      * @param x reveal center x

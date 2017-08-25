@@ -23,6 +23,7 @@ import com.android.launcher3.config.ProviderConfig;
 
 /**
  * A set of utility methods for thread verification.
+ * 验证线程的一些类
  */
 public class Preconditions {
 

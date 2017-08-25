@@ -52,6 +52,9 @@ public abstract class SQLiteCacheHelper {
             return;
         }
         try {
+            //CONFLICT_REPLACE  如果存在就更新，不存在就插入。有冲突的话就替换
+//            SQLiteDatabase.CONFLICT_REPLACE 出现冲突（唯一性约束）替换
+
             mOpenHelper.getWritableDatabase().insertWithOnConflict(
                     mTableName, null, values, SQLiteDatabase.CONFLICT_REPLACE);
         } catch (SQLiteFullException e) {
