@@ -345,7 +345,8 @@ public final class Utilities {
                 canvas.drawColor(sColors[sColorIndex]);
                 if (++sColorIndex >= sColors.length) sColorIndex = 0;
                 Paint debugPaint = new Paint();
-                debugPaint.setColor(0xffcccc00);
+                debugPaint.setColor(
+                        0xffcccc00);
                 canvas.drawRect(left, top, left+width, top+height, debugPaint);
             }
 

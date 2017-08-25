@@ -127,6 +127,7 @@ public class FlingAnimation implements AnimatorUpdateListener {
         final float time = t * mDuration;
         dragView.setTranslationX(time * mUX + mFrom.left + mAX * time * time / 2);
         dragView.setTranslationY(time * mUY + mFrom.top + mAY * time * time / 2);
+        // 透明度渐变，也可以是非匀速的
         dragView.setAlpha(1f - mAlphaInterpolator.getInterpolation(t));
     }
 }

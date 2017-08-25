@@ -35,7 +35,7 @@ public class MultiStateAlphaController {
     private final float[] mAlphas;
     private final AccessibilityManager mAm;
     private int mZeroAlphaListenerCount = 0;
-
+    //给一个View设置不同的Alpha透明层次
     public MultiStateAlphaController(View view, int stateCount) {
         mTargetView = view;
         mAlphas = new float[stateCount];
@@ -48,7 +48,7 @@ public class MultiStateAlphaController {
         mAlphas[index] = alpha;
         updateAlpha();
     }
-
+// 更新View的透明度，通过某个index
     private void updateAlpha() {
         // Only update the alpha if no zero-alpha animation is running.
         if (mZeroAlphaListenerCount > 0) {
@@ -69,11 +69,12 @@ public class MultiStateAlphaController {
      */
     public Animator animateAlphaAtIndex(float finalAlpha, final int index) {
         final ValueAnimator anim;
-
+        // 如何最终透明度和index所在的透明度一致的话，则返回一个不变化的animator
         if (Float.compare(finalAlpha, mAlphas[index]) == 0) {
             // Return a dummy animator to avoid null checks.
             anim = ValueAnimator.ofFloat(0, 0);
         } else {
+            // 给ValueAnimtor设置更新监听，修改index里面的值
             ValueAnimator animator = ValueAnimator.ofFloat(mAlphas[index], finalAlpha);
             animator.addUpdateListener(new AnimatorUpdateListener() {
                 @Override
@@ -90,6 +91,7 @@ public class MultiStateAlphaController {
             // update alpha of the target view while the animation is running.
             // We special case '0' because if any channel is set to 0, values of other
             // channels do not matter.
+            // 添加监听，判断是否动画是从0到0
             anim.addListener(new ZeroAlphaAnimatorListener());
         }
         return anim;
