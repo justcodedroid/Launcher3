@@ -26,9 +26,10 @@ public class ParcelableSparseArray extends SparseArray<Parcelable> implements Pa
 
     public void writeToParcel(Parcel dest, int flags) {
         final int count = size();
-        dest.writeInt(count);
+        dest.writeInt(count);// 在这里写进去，有多大
+        // 之后写key，value
         for (int i = 0; i < count; i++) {
-            dest.writeInt(keyAt(i));
+            dest.writeInt(keyAt(i));//
             dest.writeParcelable(valueAt(i), 0);
         }
     }
@@ -36,10 +37,12 @@ public class ParcelableSparseArray extends SparseArray<Parcelable> implements Pa
     public static final Parcelable.Creator<ParcelableSparseArray> CREATOR =
             new Parcelable.Creator<ParcelableSparseArray>() {
         public ParcelableSparseArray createFromParcel(Parcel source) {
+            // 手动创建一个。
             final ParcelableSparseArray array = new ParcelableSparseArray();
             final ClassLoader loader = array.getClass().getClassLoader();
-            final int count = source.readInt();
+            final int count = source.readInt();// 读出来有多大
             for (int i = 0; i < count; i++) {
+                // 重新设置key，value
                 array.put(source.readInt(), source.readParcelable(loader));
             }
             return array;

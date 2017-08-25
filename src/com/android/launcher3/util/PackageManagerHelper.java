@@ -109,6 +109,7 @@ public class PackageManagerHelper {
      */
     public static boolean hasPermissionForActivity(Context context, Intent intent,
             String srcPackage) {
+        // 判断一个activity是否有权限
         PackageManager pm = context.getPackageManager();
         ResolveInfo target = pm.resolveActivity(intent, 0);
         if (target == null) {
