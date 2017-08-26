@@ -22,13 +22,13 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
 
 import com.android.launcher3.Launcher;
-
+// 事件选中的状态也是通过handler来发送的
 /**
  * Periodically sends accessibility events to announce ongoing state changed. Based on the
  * implementation in ProgressBar.
  */
 public class DragViewStateAnnouncer implements Runnable {
-
+    //200ms后处理View状态的改变
     private static final int TIMEOUT_SEND_ACCESSIBILITY_EVENT = 200;
 
     private final View mTargetView;
@@ -36,9 +36,11 @@ public class DragViewStateAnnouncer implements Runnable {
     private DragViewStateAnnouncer(View view) {
         mTargetView = view;
     }
-
+    // announce 发布
     public void announce(CharSequence msg) {
+        // 给view设置一个描述，描述这个view是做什么的
         mTargetView.setContentDescription(msg);
+        // 移除post发送的事件
         mTargetView.removeCallbacks(this);
         mTargetView.postDelayed(this, TIMEOUT_SEND_ACCESSIBILITY_EVENT);
     }
@@ -49,6 +51,7 @@ public class DragViewStateAnnouncer implements Runnable {
 
     @Override
     public void run() {
+        // 发送选中状态，修改状态选择器
         mTargetView.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_SELECTED);
     }
 
