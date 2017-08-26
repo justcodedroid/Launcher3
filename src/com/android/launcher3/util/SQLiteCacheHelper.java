@@ -18,7 +18,7 @@ public abstract class SQLiteCacheHelper {
 
     private final String mTableName;
     private final MySQLiteOpenHelper mOpenHelper;
-
+    // 磁盘满的话，忽略写入
     private boolean mIgnoreWrites;
 
     public SQLiteCacheHelper(Context context, String name, int version, String tableName) {

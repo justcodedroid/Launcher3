@@ -28,6 +28,7 @@ import android.view.View;
  * You can also modify the bounds post construction. Since the bounds are available during layout,
  * this avoids new object creation during every layout.
  */
+// 当想要触摸的大小，大于view的实际大小的时候，可以使用TouchDelegate（触摸代理类）
 public class TransformingTouchDelegate extends TouchDelegate {
     private static final Rect sTempRect = new Rect();
 
@@ -60,6 +61,7 @@ public class TransformingTouchDelegate extends TouchDelegate {
 
     private void updateTouchBounds() {
         mTouchCheckBounds.set(mBounds);
+        // 上下左右减少mTouchCheckBounds的范围
         mTouchCheckBounds.inset(-mTouchExtension, -mTouchExtension);
     }
 
@@ -80,6 +82,7 @@ public class TransformingTouchDelegate extends TouchDelegate {
             case MotionEvent.ACTION_DOWN:
                 mDelegateTargeted = mTouchCheckBounds.contains(event.getX(), event.getY());
                 if (mDelegateTargeted) {
+                    //mWasTouchOutsideBounds 返回的是否触摸的是外面
                     mWasTouchOutsideBounds = !mBounds.contains(event.getX(), event.getY());
                     sendToDelegate = true;
                 }
@@ -105,6 +108,7 @@ public class TransformingTouchDelegate extends TouchDelegate {
             handled = mDelegateView.dispatchTouchEvent(event);
             event.setLocation(x, y);
         }
+        // 是否交给了代理view处理
         return handled;
     }
 }
